@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using api.Models;
-using api.DataAccess;
+using Models;
+using DataAccess;
 using Microsoft.AspNetCore.Cors;
 
 namespace api.Controllers
@@ -37,6 +37,7 @@ namespace api.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            System.Console.WriteLine(value);
         }
 
         // PUT: api/Course/5
