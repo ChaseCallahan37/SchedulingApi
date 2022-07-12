@@ -14,6 +14,14 @@ namespace DataAccess
 
         public static void AddCourse(CourseModel newCourse)
         {
+
+            AllCourses.Add(newCourse);
+        }
+
+        public static void UpdateCourse(string id, CourseModel newCourse)
+        {
+            int index = AllCourses.FindIndex(c => c.Id.Equals(id));
+            AllCourses.RemoveAt(index);
             AllCourses.Add(newCourse);
         }
     }

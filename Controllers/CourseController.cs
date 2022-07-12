@@ -38,14 +38,14 @@ namespace api.Controllers
         public void Post([FromBody] CourseModel value)
         {
             CourseData.AddCourse(value);
-            System.Console.WriteLine(value.Title);
         }
 
         // PUT: api/Course/5
         [EnableCors("AnotherPolicy")]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(string id, [FromBody] CourseModel value)
         {
+            CourseData.UpdateCourse(id, value);
         }
 
         // DELETE: api/Course/5
