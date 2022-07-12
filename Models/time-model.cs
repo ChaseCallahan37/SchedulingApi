@@ -1,13 +1,9 @@
 namespace Models
 {
-    public class Time
+    public class TimeModel
     {
-        public string Hour { get; set; } = "";
-        public string Minute { get; set; } = "";
-
-        public bool Pm { get; set; } = false;
-
-        public int Military { get; set; } = 0;
+        public string Start { get; set; } = "";
+        public string End { get; set; } = "";
 
     }
 }

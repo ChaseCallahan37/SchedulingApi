@@ -1,10 +1,11 @@
+using System.Collections.Generic;
+
 namespace Models;
 
-public class Day
+public class DayModel
 {
     public string title { get; set; } = "";
 
-    public Time start { get; set; } = new Time();
+    public List<TimeModel> times {get; set;} = new List<TimeModel>();
 
-    public Time end { get; set; } = new Time();
 }
