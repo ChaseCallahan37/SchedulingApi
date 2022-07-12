@@ -1,6 +1,6 @@
 namespace Models;
 
-public class Resource
+public class ResourceModel
 {
     public string Id { get; set; } = "";
     public string Type { get; set; } = "";

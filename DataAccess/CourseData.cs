@@ -5,11 +5,16 @@ namespace DataAccess
 {
     public class CourseData
     {
-        public List<Course> GetAllCourses()
+
+        public static List<CourseModel> AllCourses { get; set; } = new List<CourseModel>();
+        public static List<CourseModel> GetAllCourses()
         {
-            List<Course> myCourses = new List<Course>();
-            myCourses.Add(new Course() { Id = "abc 123", Title = "MIS 221", Info = "Covers Coding", Availability = new List<Day>() { new Day() { title = "Monday", start = new Time() { Hour = "12", Minute = "30", Pm = true, Military = 1230 }, end = new Time() { Hour = "4", Minute = "45", Pm = true, Military = 1645 } } }, Resources = new List<string>() { "abc 123", "def 456" } });
-            return myCourses;
+            return AllCourses;
+        }
+
+        public static void AddCourse(CourseModel newCourse)
+        {
+            AllCourses.Add(newCourse);
         }
     }
 }

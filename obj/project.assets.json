@@ -8839,11 +8839,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\chase\\OneDrive\\Documents\\Source\\Repos\\Projects\\SchedulingApi\\api.csproj",
+      "projectUniqueName": "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\SchedulingApi\\api.csproj",
       "projectName": "api",
-      "projectPath": "C:\\Users\\chase\\OneDrive\\Documents\\Source\\Repos\\Projects\\SchedulingApi\\api.csproj",
+      "projectPath": "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\SchedulingApi\\api.csproj",
       "packagesPath": "C:\\Users\\chase\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\chase\\OneDrive\\Documents\\Source\\Repos\\Projects\\SchedulingApi\\obj\\",
+      "outputPath": "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\SchedulingApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\chase\\AppData\\Roaming\\NuGet\\NuGet.Config",

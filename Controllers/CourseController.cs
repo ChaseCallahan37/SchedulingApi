@@ -12,15 +12,15 @@ namespace api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class CourseController : ControllerBase
     {
         // GET: api/Course
         [EnableCors("AnotherPolicy")]
         [HttpGet]
-        public List<Course> Get()
+        public List<CourseModel> Get()
         {
-            CourseData myDataHandler = new CourseData();
-            return myDataHandler.GetAllCourses();
+            return CourseData.GetAllCourses();
         }
 
         // GET: api/Course/5
@@ -35,9 +35,10 @@ namespace api.Controllers
         // POST: api/Course
         [EnableCors("AnotherPolicy")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] CourseModel value)
         {
-            System.Console.WriteLine(value);
+            CourseData.AddCourse(value);
+            System.Console.WriteLine(value.Title);
         }
 
         // PUT: api/Course/5
