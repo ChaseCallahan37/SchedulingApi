@@ -24,5 +24,11 @@ namespace DataAccess
             AllCourses.RemoveAt(index);
             AllCourses.Add(newCourse);
         }
+
+        public static void DeleteCourse(string id)
+        {
+            int index = AllCourses.FindIndex(c => c.Id.Equals(id));
+            AllCourses.RemoveAt(index);
+        }
     }
 }

@@ -51,8 +51,9 @@ namespace api.Controllers
         // DELETE: api/Course/5
         [EnableCors("AnotherPolicy")]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            CourseData.DeleteCourse(id);
         }
     }
 }
