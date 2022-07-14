@@ -40,7 +40,7 @@ namespace api.Controllers
             CourseData.AddCourse(value);
         }
 
-        // PUT: api/Course/5
+        // PUT: api/Course/55
         [EnableCors("AnotherPolicy")]
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] CourseModel value)
