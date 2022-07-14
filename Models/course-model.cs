@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 namespace Models
 {
@@ -9,11 +10,9 @@ namespace Models
 
         public string Info { get; set; } = "";
 
-        public List<DayModel> Availability { get; set; } = new List<DayModel>();
+        public List<DateTime> Availability { get; set; } = new List<DateTime>();
 
         public List<string> Resources { get; set; } = new List<string>();
-
-
 
     }
 }
