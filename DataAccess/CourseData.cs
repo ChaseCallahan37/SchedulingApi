@@ -12,23 +12,26 @@ namespace DataAccess
             return AllCourses;
         }
 
-        public static void AddCourse(CourseModel newCourse)
+        public static CourseModel AddCourse(CourseModel newCourse)
         {
 
             AllCourses.Add(newCourse);
+            return newCourse;
         }
 
-        public static void UpdateCourse(string id, CourseModel newCourse)
+        public static CourseModel UpdateCourse(string id, CourseModel newCourse)
         {
             int index = AllCourses.FindIndex(c => c.Id.Equals(id));
             AllCourses.RemoveAt(index);
             AllCourses.Add(newCourse);
+            return newCourse;
         }
 
-        public static void DeleteCourse(string id)
+        public static CourseModel DeleteCourse(string id)
         {
-            int index = AllCourses.FindIndex(c => c.Id.Equals(id));
-            AllCourses.RemoveAt(index);
+            CourseModel toDelete = AllCourses.Find(c => c.Id.Equals(id));
+            AllCourses.Remove(toDelete);
+            return toDelete;
         }
     }
 }

@@ -35,25 +35,25 @@ namespace api.Controllers
         // POST: api/Course
         [EnableCors("AnotherPolicy")]
         [HttpPost]
-        public void Post([FromBody] CourseModel value)
+        public CourseModel Post([FromBody] CourseModel value)
         {
-            CourseData.AddCourse(value);
+            return CourseData.AddCourse(value);
         }
 
         // PUT: api/Course/5
         [EnableCors("AnotherPolicy")]
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody] CourseModel value)
+        public CourseModel Put(string id, [FromBody] CourseModel value)
         {
-            CourseData.UpdateCourse(id, value);
+            return CourseData.UpdateCourse(id, value);
         }
 
         // DELETE: api/Course/5
         [EnableCors("AnotherPolicy")]
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public CourseModel Delete(string id)
         {
-            CourseData.DeleteCourse(id);
+            return CourseData.DeleteCourse(id);
         }
     }
 }
