@@ -3,7 +3,7 @@ using System;
 
 namespace Models
 {
-    public class CourseModel
+    public class CourseModel : IComparable<CourseModel>
     {
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
@@ -13,6 +13,11 @@ namespace Models
         public List<DateTime> Availability { get; set; } = new List<DateTime>();
 
         public List<ResourceModel> Resources { get; set; } = new List<ResourceModel>();
+
+        public int CompareTo(CourseModel other)
+        {
+            return this.Name.CompareTo(other.Name);
+        }
 
     }
 }

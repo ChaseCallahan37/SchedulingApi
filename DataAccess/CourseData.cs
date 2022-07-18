@@ -9,6 +9,7 @@ namespace DataAccess
         public static List<CourseModel> AllCourses { get; set; } = new List<CourseModel>();
         public static List<CourseModel> GetAllCourses()
         {
+            AllCourses.Sort();
             return AllCourses;
         }
 
