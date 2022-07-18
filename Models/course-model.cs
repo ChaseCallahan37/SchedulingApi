@@ -12,7 +12,7 @@ namespace Models
 
         public List<DateTime> Availability { get; set; } = new List<DateTime>();
 
-        public List<string> Resources { get; set; } = new List<string>();
+        public List<ResourceModel> Resources { get; set; } = new List<ResourceModel>();
 
     }
 }
