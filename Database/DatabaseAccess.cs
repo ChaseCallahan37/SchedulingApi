@@ -30,11 +30,11 @@ namespace Database
                 {
                     try
                     {
-                        var id = (string)rdr["course_id"];
-                        var name = (string)rdr["name"];
-                        var teachingStyle = (string)rdr["teaching_style"];
-                        var info = (string)rdr["info"];
-                        var availability = JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]);
+                        var id = !rdr.IsDBNull("course_id") ? (string)rdr["course_id"] : "";
+                        var name = !rdr.IsDBNull("name") ? (string)rdr["name"] : "";
+                        var teachingStyle = !rdr.IsDBNull("teaching_style") ? (string)rdr["teaching_style"] : "";
+                        var info = !rdr.IsDBNull("info") ? (string)rdr["info"] : "";
+                        var availability = !rdr.IsDBNull("availability") ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]) : new List<DateTime>();
 
                         var newCourse = new CourseModel(id, name, info, availability, teachingStyle);
                         pulledCourses.Add(newCourse);
@@ -60,7 +60,6 @@ namespace Database
 
         public static bool CreateCourse(CourseModel newCourse)
         {
-            System.Console.WriteLine(newCourse.ToString());
             bool success;
             connection.Open();
             try

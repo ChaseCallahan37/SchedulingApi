@@ -38,7 +38,6 @@ namespace api.Controllers
         [HttpPost]
         public CourseModel Post([FromBody] CourseModel value)
         {
-            DatabaseAccess.CreateCourse(value);
             return CourseData.AddCourse(value);
         }
 

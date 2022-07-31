@@ -37,7 +37,8 @@ namespace DataAccess
         {
             int index = AllCourses.FindIndex(c => c.Id.Equals(id));
             AllCourses.RemoveAt(index);
-            AllCourses.Add(newCourse);
+            DatabaseAccess.DeleteCourse(id);
+            DatabaseAccess.CreateCourse(newCourse);
             return newCourse;
         }
 
