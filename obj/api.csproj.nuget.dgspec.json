@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\SchedulingApi\\api.csproj": {}
+    "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\Professional\\BeauTech\\SchedulingApi\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\SchedulingApi\\api.csproj": {
+    "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\Professional\\BeauTech\\SchedulingApi\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\SchedulingApi\\api.csproj",
+        "projectUniqueName": "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\Professional\\BeauTech\\SchedulingApi\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\SchedulingApi\\api.csproj",
+        "projectPath": "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\Professional\\BeauTech\\SchedulingApi\\api.csproj",
         "packagesPath": "C:\\Users\\chase\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\SchedulingApi\\obj\\",
+        "outputPath": "C:\\Users\\chase\\OneDrive\\Documents\\Projects\\Professional\\BeauTech\\SchedulingApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\chase\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -43,6 +43,14 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.6, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.29, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
