@@ -8,15 +8,38 @@ namespace Models
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
 
+        public string TeachingStyle { get; set; } = "";
+
         public string Info { get; set; } = "";
 
         public List<DateTime> Availability { get; set; } = new List<DateTime>();
 
         public List<ResourceModel> Resources { get; set; } = new List<ResourceModel>();
 
+        public CourseModel()
+        {
+
+        }
+
+        public CourseModel(string id, string name, string info, List<DateTime> availability, string teachingStyle)
+        {
+            Id = id;
+            Name = name;
+            Info = info;
+            Availability = availability;
+            TeachingStyle = teachingStyle;
+        }
+
+
+
         public int CompareTo(CourseModel other)
         {
             return this.Name.CompareTo(other.Name);
+        }
+
+        public string ToString()
+        {
+            return $"ID: {this.Id} Name: {this.Name} Info: {this.Info} Teaching Style: {this.TeachingStyle}";
         }
 
     }

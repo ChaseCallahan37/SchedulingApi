@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using DataAccess;
 using Microsoft.AspNetCore.Cors;
+using Models;
+using Database;
+using DataAccess;
 
 namespace api.Controllers
 {
@@ -37,6 +38,7 @@ namespace api.Controllers
         [HttpPost]
         public CourseModel Post([FromBody] CourseModel value)
         {
+            DatabaseAccess.CreateCourse(value);
             return CourseData.AddCourse(value);
         }
 
