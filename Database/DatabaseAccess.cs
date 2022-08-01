@@ -35,8 +35,7 @@ namespace Database
                         var teachingStyle = !rdr.IsDBNull("teaching_style") ? (string)rdr["teaching_style"] : "";
                         var info = !rdr.IsDBNull("info") ? (string)rdr["info"] : "";
                         var availability = !rdr.IsDBNull("availability") ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]) : new List<DateTime>();
-                        // var resources = !rdr.IsDBNull("resources") ? JsonSerializer.Deserialize<CourseResource>((string)rdr["resources"]) : new CourseResource(0, 0);
-                        var resources = new CourseResource(0, 0);
+                        var resources = !rdr.IsDBNull("resources") ? JsonSerializer.Deserialize<CourseResource>((string)rdr["resources"]) : new CourseResource(0, 0);
 
                         var newCourse = new CourseModel(id, name, info, availability, teachingStyle, resources);
                         pulledCourses.Add(newCourse);
