@@ -6,13 +6,13 @@ namespace Models
     public class CourseModel : IComparable<CourseModel>
     {
         public string Id { get; set; } = "";
+        public string TeachingStyle { get; set; } = "";
         public string Name { get; set; } = "";
 
         public string Info { get; set; } = "";
 
         public List<DateTime> Availability { get; set; } = new List<DateTime>();
 
-        public string TeachingStyle { get; set; } = "";
 
         public CourseResource Resources { get; set; }
 
