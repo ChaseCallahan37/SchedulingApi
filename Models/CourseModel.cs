@@ -8,12 +8,15 @@ namespace Models
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
 
-        public string TeachingStyle { get; set; } = "";
-
         public string Info { get; set; } = "";
 
         public List<DateTime> Availability { get; set; } = new List<DateTime>();
 
+<<<<<<< HEAD
+=======
+        public string TeachingStyle { get; set; } = "";
+
+>>>>>>> bcc22d6983237a0e7813e5ef090da9afad7a7af7
         public CourseResource Resources { get; set; }
 
         public CourseModel()

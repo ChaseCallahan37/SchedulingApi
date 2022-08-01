@@ -34,10 +34,15 @@ namespace Database
                         var name = !rdr.IsDBNull("name") ? (string)rdr["name"] : "";
                         var teachingStyle = !rdr.IsDBNull("teaching_style") ? (string)rdr["teaching_style"] : "";
                         var info = !rdr.IsDBNull("info") ? (string)rdr["info"] : "";
+<<<<<<< HEAD
                         var availability = !rdr.IsDBNull("availability")
                             ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]) : new List<DateTime>();
                         var resources = !rdr.IsDBNull("resources")
                             ? JsonSerializer.Deserialize<CourseResource>((string)rdr["resources"]) : new CourseResource();
+=======
+                        var availability = !rdr.IsDBNull("availability") ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]) : new List<DateTime>();
+                        var resources = !rdr.IsDBNull("resources") ? JsonSerializer.Deserialize<CourseResource>((string)rdr["resources"]) : new CourseResource(0, 0);
+>>>>>>> bcc22d6983237a0e7813e5ef090da9afad7a7af7
 
                         var newCourse = new CourseModel(id, name, info, availability, teachingStyle, resources);
                         pulledCourses.Add(newCourse);
@@ -76,7 +81,12 @@ namespace Database
                 cmd.Parameters.Add(new MySqlParameter("new_availability",
                     JsonSerializer.Serialize<List<DateTime>>(newCourse.Availability)));
                 cmd.Parameters.Add(new MySqlParameter("new_teaching_style", newCourse.TeachingStyle));
+<<<<<<< HEAD
                 cmd.Parameters.Add(new MySqlParameter("new_resources", newCourse.Resources));
+=======
+                cmd.Parameters.Add(new MySqlParameter("new_resources",
+                    JsonSerializer.Serialize<CourseResource>(newCourse.Resources)));
+>>>>>>> bcc22d6983237a0e7813e5ef090da9afad7a7af7
 
                 cmd.ExecuteNonQuery();
 
