@@ -14,20 +14,21 @@ namespace Models
 
         public List<DateTime> Availability { get; set; } = new List<DateTime>();
 
-        public List<ResourceModel> Resources { get; set; } = new List<ResourceModel>();
+        public CourseResource Resources { get; set; }
 
         public CourseModel()
         {
 
         }
 
-        public CourseModel(string id, string name, string info, List<DateTime> availability, string teachingStyle)
+        public CourseModel(string id, string name, string info, List<DateTime> availability, string teachingStyle, CourseResource resources)
         {
             Id = id;
             Name = name;
             Info = info;
             Availability = availability;
             TeachingStyle = teachingStyle;
+            Resources = resources;
         }
 
 

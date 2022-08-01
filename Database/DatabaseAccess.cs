@@ -34,9 +34,12 @@ namespace Database
                         var name = !rdr.IsDBNull("name") ? (string)rdr["name"] : "";
                         var teachingStyle = !rdr.IsDBNull("teaching_style") ? (string)rdr["teaching_style"] : "";
                         var info = !rdr.IsDBNull("info") ? (string)rdr["info"] : "";
-                        var availability = !rdr.IsDBNull("availability") ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]) : new List<DateTime>();
+                        var availability = !rdr.IsDBNull("availability")
+                            ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]) : new List<DateTime>();
+                        var resources = !rdr.IsDBNull("resources")
+                            ? JsonSerializer.Deserialize<CourseResource>((string)rdr["resources"]) : new CourseResource();
 
-                        var newCourse = new CourseModel(id, name, info, availability, teachingStyle);
+                        var newCourse = new CourseModel(id, name, info, availability, teachingStyle, resources);
                         pulledCourses.Add(newCourse);
                     }
                     catch (MySql.Data.MySqlClient.MySqlException ex)
@@ -73,6 +76,7 @@ namespace Database
                 cmd.Parameters.Add(new MySqlParameter("new_availability",
                     JsonSerializer.Serialize<List<DateTime>>(newCourse.Availability)));
                 cmd.Parameters.Add(new MySqlParameter("new_teaching_style", newCourse.TeachingStyle));
+                cmd.Parameters.Add(new MySqlParameter("new_resources", newCourse.Resources));
 
                 cmd.ExecuteNonQuery();
 
