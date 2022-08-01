@@ -8,26 +8,27 @@ namespace Models
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
 
-        public string TeachingStyle { get; set; } = "";
-
         public string Info { get; set; } = "";
 
         public List<DateTime> Availability { get; set; } = new List<DateTime>();
 
-        public List<ResourceModel> Resources { get; set; } = new List<ResourceModel>();
+        public string TeachingStyle { get; set; } = "";
+
+        public CourseResource Resources { get; set; }
 
         public CourseModel()
         {
 
         }
 
-        public CourseModel(string id, string name, string info, List<DateTime> availability, string teachingStyle)
+        public CourseModel(string id, string name, string info, List<DateTime> availability, string teachingStyle, CourseResource resources)
         {
             Id = id;
             Name = name;
             Info = info;
             Availability = availability;
             TeachingStyle = teachingStyle;
+            Resources = resources;
         }
 
 
