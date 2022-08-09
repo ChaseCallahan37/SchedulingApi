@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -9,19 +9,19 @@ using Models;
 
 namespace Database
 {
-    public class DatabaseAccess
+    public class ResourceDb
     {
 
         static string connectionString = "server=scheduling-db.cjmckd98ubrp.us-east-2.rds.amazonaws.com;uid=admin;pwd=13153Lakearnedra!;database=scheduling";
         static MySqlConnection connection = new MySqlConnection(connectionString);
 
-        public static List<EventModel> GetEvents()
+        public static List<ResourceModel> GetResources()
         {
-            var pulledEvents = new List<EventModel>();
+            var pulledResources = new List<ResourceModel>();
             connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("get_events", connection);
+                MySqlCommand cmd = new MySqlCommand("get_resources", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -30,14 +30,17 @@ namespace Database
                 {
                     try
                     {
-                        var id = !rdr.IsDBNull("event_id") ? (string)rdr["event_id"] : "";
+                        var id = !rdr.IsDBNull("resource_id") ? (string)rdr["Resource_id"] : "";
                         var name = !rdr.IsDBNull("name") ? (string)rdr["name"] : "";
-                        var availability = !rdr.IsDBNull("availability") ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]) : new List<DateTime>();
+                        var availability = !rdr.IsDBNull("availability")
+                            ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"])
+                            : new List<DateTime>();
+                        var type = !rdr.IsDBNull("type") ? (string)rdr["type"] : "";
                         var eventSize = !rdr.IsDBNull("event_size") ? (string)rdr["event_size"] : "";
 
 
-                        var newEvent = new EventModel(id, name, availability, eventSize);
-                        pulledEvents.Add(newEvent);
+                        var newResource = new ResourceModel(id, name, availability, type, eventSize);
+                        pulledResources.Add(newResource);
                     }
                     catch (MySql.Data.MySqlClient.MySqlException ex)
                     {
@@ -55,27 +58,23 @@ namespace Database
             {
                 connection.Close();
             }
-            return pulledEvents;
+            return pulledResources;
         }
 
-        public static bool CreateEvent(EventModel newEvent)
+        public static bool CreateResource(ResourceModel newResource)
         {
-            // newEvent.Id = "be3a5483-7b05-4b56-962e-13fe36c5e3ca";
-            // newEvent.Name = "MIS 421";
-            // newEvent.Availability = new List<DateTime> { DateTime.Now, DateTime.Now };
-            // newEvent.EventSize = "medium";
             bool success;
             connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("create_event", connection);
+                MySqlCommand cmd = new MySqlCommand("create_resource", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add(new MySqlParameter("new_id", newEvent.Id));
-                cmd.Parameters.Add(new MySqlParameter("new_name", newEvent.Name));
+                cmd.Parameters.Add(new MySqlParameter("new_id", newResource.Id));
+                cmd.Parameters.Add(new MySqlParameter("new_name", newResource.Name));
                 cmd.Parameters.Add(new MySqlParameter("new_availability",
-                    JsonSerializer.Serialize<List<DateTime>>(newEvent.Availability)));
-                cmd.Parameters.Add(new MySqlParameter("new_size", newEvent.EventSize));
+                    JsonSerializer.Serialize<List<DateTime>>(newResource.Availability)));
+                cmd.Parameters.Add(new MySqlParameter("new_size", newResource.EventSize));
 
 
                 cmd.ExecuteNonQuery();
@@ -94,13 +93,13 @@ namespace Database
             return success;
         }
 
-        public static bool DeleteEvent(string id)
+        public static bool DeleteResource(string id)
         {
             bool success;
             connection.Open();
             try
             {
-                var cmd = new MySqlCommand("delete_event", connection);
+                var cmd = new MySqlCommand("delete_resource", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new MySqlParameter("id", id));
