@@ -16,17 +16,17 @@ namespace api.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class CourseController : ControllerBase
+    public class EventController : ControllerBase
     {
         // GET: api/Course
         [EnableCors("AnotherPolicy")]
         [HttpGet]
-        public List<CourseModel> Get()
+        public List<EventModel> Get()
         {
-            return CourseData.GetAllCourses();
+            return EventData.GetAllEvents();
         }
 
-        // GET: api/Course/5
+        // GET: api/Event/5
         [EnableCors("AnotherPolicy")]
 
         [HttpGet("{id}", Name = "Get")]
@@ -35,28 +35,28 @@ namespace api.Controllers
             return "value";
         }
 
-        // POST: api/Course
+        // POST: api/Event
         [EnableCors("AnotherPolicy")]
         [HttpPost]
-        public CourseModel Post([FromBody] CourseModel value)
+        public EventModel Post([FromBody] EventModel value)
         {
-            return CourseData.AddCourse(value);
+            return EventData.AddEvent(value);
         }
 
-        // PUT: api/Course/55
+        // PUT: api/Event/55
         [EnableCors("AnotherPolicy")]
         [HttpPut("{id}")]
-        public CourseModel Put(string id, [FromBody] CourseModel value)
+        public EventModel Put(string id, [FromBody] EventModel value)
         {
-            return CourseData.UpdateCourse(id, value);
+            return EventData.UpdateEvent(id, value);
         }
 
-        // DELETE: api/Course/5
+        // DELETE: api/Event/5
         [EnableCors("AnotherPolicy")]
         [HttpDelete("{id}")]
-        public CourseModel Delete(string id)
+        public EventModel Delete(string id)
         {
-            return CourseData.DeleteCourse(id);
+            return EventData.DeleteEvent(id);
         }
     }
 }

@@ -15,13 +15,13 @@ namespace Database
         static string connectionString = "server=scheduling-db.cjmckd98ubrp.us-east-2.rds.amazonaws.com;uid=admin;pwd=13153Lakearnedra!;database=scheduling";
         static MySqlConnection connection = new MySqlConnection(connectionString);
 
-        public static List<CourseModel> GetCourses()
+        public static List<EventModel> GetEvents()
         {
-            var pulledCourses = new List<CourseModel>();
+            var pulledEvents = new List<EventModel>();
             connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("get_courses", connection);
+                MySqlCommand cmd = new MySqlCommand("get_events", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -30,15 +30,14 @@ namespace Database
                 {
                     try
                     {
-                        var id = !rdr.IsDBNull("course_id") ? (string)rdr["course_id"] : "";
+                        var id = !rdr.IsDBNull("event_id") ? (string)rdr["event_id"] : "";
                         var name = !rdr.IsDBNull("name") ? (string)rdr["name"] : "";
-                        var teachingStyle = !rdr.IsDBNull("teaching_style") ? (string)rdr["teaching_style"] : "";
-                        var info = !rdr.IsDBNull("info") ? (string)rdr["info"] : "";
                         var availability = !rdr.IsDBNull("availability") ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]) : new List<DateTime>();
-                        var resources = !rdr.IsDBNull("resources") ? JsonSerializer.Deserialize<CourseResource>((string)rdr["resources"]) : new CourseResource(0, 0);
+                        var eventSize = !rdr.IsDBNull("event_size") ? (string)rdr["event_size"] : "";
 
-                        var newCourse = new CourseModel(id, name, info, availability, teachingStyle, resources);
-                        pulledCourses.Add(newCourse);
+
+                        var newEvent = new EventModel(id, name, availability, eventSize);
+                        pulledEvents.Add(newEvent);
                     }
                     catch (MySql.Data.MySqlClient.MySqlException ex)
                     {
@@ -56,26 +55,28 @@ namespace Database
             {
                 connection.Close();
             }
-            return pulledCourses;
+            return pulledEvents;
         }
 
-        public static bool CreateCourse(CourseModel newCourse)
+        public static bool CreateEvent(EventModel newEvent)
         {
+            // newEvent.Id = "be3a5483-7b05-4b56-962e-13fe36c5e3ca";
+            // newEvent.Name = "MIS 421";
+            // newEvent.Availability = new List<DateTime> { DateTime.Now, DateTime.Now };
+            // newEvent.EventSize = "medium";
             bool success;
             connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("create_course", connection);
+                MySqlCommand cmd = new MySqlCommand("create_event", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.Add(new MySqlParameter("new_id", newCourse.Id));
-                cmd.Parameters.Add(new MySqlParameter("new_name", newCourse.Name));
-                cmd.Parameters.Add(new MySqlParameter("new_info", newCourse.Info));
+                cmd.Parameters.Add(new MySqlParameter("new_id", newEvent.Id));
+                cmd.Parameters.Add(new MySqlParameter("new_name", newEvent.Name));
                 cmd.Parameters.Add(new MySqlParameter("new_availability",
-                    JsonSerializer.Serialize<List<DateTime>>(newCourse.Availability)));
-                cmd.Parameters.Add(new MySqlParameter("new_teaching_style", newCourse.TeachingStyle));
-                cmd.Parameters.Add(new MySqlParameter("new_resources",
-                    JsonSerializer.Serialize<CourseResource>(newCourse.Resources)));
+                    JsonSerializer.Serialize<List<DateTime>>(newEvent.Availability)));
+                cmd.Parameters.Add(new MySqlParameter("new_size", newEvent.EventSize));
+
 
                 cmd.ExecuteNonQuery();
 
@@ -93,13 +94,13 @@ namespace Database
             return success;
         }
 
-        public static bool DeleteCourse(string id)
+        public static bool DeleteEvent(string id)
         {
             bool success;
             connection.Open();
             try
             {
-                var cmd = new MySqlCommand("delete_course", connection);
+                var cmd = new MySqlCommand("delete_event", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new MySqlParameter("id", id));
