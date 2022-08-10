@@ -53,5 +53,10 @@ namespace DataAccess
             }
             return new EventModel();
         }
+
+        public static List<string> GetSizes()
+        {
+            return EventDb.GetEventSizes();
+        }
     }
 }

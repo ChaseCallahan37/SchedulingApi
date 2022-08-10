@@ -74,6 +74,7 @@ namespace Database
                 cmd.Parameters.Add(new MySqlParameter("new_name", newResource.Name));
                 cmd.Parameters.Add(new MySqlParameter("new_availability",
                     JsonSerializer.Serialize<List<DateTime>>(newResource.Availability)));
+                cmd.Parameters.Add(new MySqlParameter("new_type", newResource.Type));
                 cmd.Parameters.Add(new MySqlParameter("new_size", newResource.EventSize));
 
 
@@ -118,6 +119,44 @@ namespace Database
                 connection.Close();
             }
             return success;
+        }
+
+        public static List<string> GetResourceTypes()
+        {
+            var resourceTypes = new List<string>();
+            connection.Open();
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("get_resource_types", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    try
+                    {
+                        var name = !rdr.IsDBNull("name") ? (string)rdr["name"] : "";
+
+                        resourceTypes.Add(name);
+                    }
+                    catch (MySql.Data.MySqlClient.MySqlException ex)
+                    {
+                        System.Console.WriteLine($"This is the exception: {ex}");
+
+                    }
+
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                System.Console.WriteLine($"This is the exception: {ex}");
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return resourceTypes;
         }
     }
 }

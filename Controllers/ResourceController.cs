@@ -13,11 +13,11 @@ using DataAccess;
 
 [ApiController]
 
-public class ResourceController : ControllerBase
+public class ResourcesController : ControllerBase
 
 {
 
-    // GET api/resource
+    // GET api/resources
 
     [HttpGet]
     [EnableCors("AnotherPolicy")]
@@ -29,8 +29,7 @@ public class ResourceController : ControllerBase
     }
 
 
-
-    // GET api/resource/5
+    // GET api/resources/5
 
     [HttpGet("{id}")]
     [EnableCors("AnotherPolicy")]
@@ -42,9 +41,15 @@ public class ResourceController : ControllerBase
 
     }
 
+    [HttpGet]
+    [EnableCors("AnotherPolicy")]
+    [Route("types")]
+    public List<string> GetTypes()
+    {
+        return ResourceData.GetResourceTypes();
+    }
 
-
-    // POST api/resource
+    // POST api/resources
 
     [HttpPost]
     [EnableCors("AnotherPolicy")]
@@ -55,7 +60,7 @@ public class ResourceController : ControllerBase
 
 
 
-    // PUT api/resource/5
+    // PUT api/resources/5
 
     [HttpPut("{id}")]
     [EnableCors("AnotherPolicy")]
@@ -66,7 +71,7 @@ public class ResourceController : ControllerBase
 
 
 
-    // DELETE api/resource/5
+    // DELETE api/resources/5
 
     [HttpDelete("{id}")]
     [EnableCors("AnotherPolicy")]

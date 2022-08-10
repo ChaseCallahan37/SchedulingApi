@@ -16,9 +16,9 @@ namespace api.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class EventController : ControllerBase
+    public class EventsController : ControllerBase
     {
-        // GET: api/event
+        // GET: api/events
         [EnableCors("AnotherPolicy")]
         [HttpGet]
         public List<EventModel> Get()
@@ -26,7 +26,7 @@ namespace api.Controllers
             return EventData.GetAllEvents();
         }
 
-        // GET: api/event/5
+        // GET: api/events/5
         [EnableCors("AnotherPolicy")]
 
         [HttpGet("{id}", Name = "Get")]
@@ -35,7 +35,15 @@ namespace api.Controllers
             return "value";
         }
 
-        // POST: api/event
+        [EnableCors("AnotherPolicy")]
+        [HttpGet]
+        [Route("sizes")]
+        public List<string> GetSizes()
+        {
+            return EventData.GetSizes();
+        }
+
+        // POST: api/events
         [EnableCors("AnotherPolicy")]
         [HttpPost]
         public EventModel Post([FromBody] EventModel value)
@@ -43,7 +51,7 @@ namespace api.Controllers
             return EventData.AddEvent(value);
         }
 
-        // PUT: api/event/55
+        // PUT: api/events/55
         [EnableCors("AnotherPolicy")]
         [HttpPut("{id}")]
         public EventModel Put(string id, [FromBody] EventModel value)
@@ -51,7 +59,7 @@ namespace api.Controllers
             return EventData.UpdateEvent(id, value);
         }
 
-        // DELETE: api/event/5
+        // DELETE: api/events/5
         [EnableCors("AnotherPolicy")]
         [HttpDelete("{id}")]
         public EventModel Delete(string id)

@@ -53,5 +53,10 @@ namespace DataAccess
             }
             return new ResourceModel();
         }
+
+        public static List<string> GetResourceTypes()
+        {
+            return ResourceDb.GetResourceTypes();
+        }
     }
 }
