@@ -10,14 +10,14 @@ namespace DataAccess
         public static List<EventModel> AllEvents { get; set; }
         public static List<EventModel> GetAllEvents()
         {
-            AllEvents = DatabaseAccess.GetEvents();
+            AllEvents = EventDb.GetEvents();
             AllEvents.Sort();
             return AllEvents;
         }
 
         public static EventModel AddEvent(EventModel newEvent)
         {
-            DatabaseAccess.CreateEvent(newEvent);
+            EventDb.CreateEvent(newEvent);
             return newEvent;
         }
 
@@ -37,8 +37,8 @@ namespace DataAccess
         {
             int index = AllEvents.FindIndex(c => c.Id.Equals(id));
             AllEvents.RemoveAt(index);
-            DatabaseAccess.DeleteEvent(id);
-            DatabaseAccess.CreateEvent(newEvent);
+            EventData.DeleteEvent(id);
+            EventDb.CreateEvent(newEvent);
             return newEvent;
         }
 
@@ -46,12 +46,17 @@ namespace DataAccess
         public static EventModel DeleteEvent(string id)
         {
             EventModel toDelete = AllEvents.Find(c => c.Id.Equals(id));
-            bool success = DatabaseAccess.DeleteEvent(id);
+            bool success = EventDb.DeleteEvent(id);
             if (success)
             {
                 return toDelete;
             }
             return new EventModel();
+        }
+
+        public static List<string> GetSizes()
+        {
+            return EventDb.GetEventSizes();
         }
     }
 }

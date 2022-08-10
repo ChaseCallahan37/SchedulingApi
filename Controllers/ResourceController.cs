@@ -7,33 +7,32 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using DataAccess;
 using Microsoft.AspNetCore.Cors;
+using DataAccess;
 
 [Route("api/[controller]")]
 
 [ApiController]
 
-public class ResourceController : ControllerBase
+public class ResourcesController : ControllerBase
 
 {
 
-    // GET api/resource
+    // GET api/resources
 
     [HttpGet]
-
-    public ActionResult<IEnumerable<string>> Get()
-
+    [EnableCors("AnotherPolicy")]
+    public List<ResourceModel> Get()
     {
 
-        return new string[] { "value1", "value2" };
+        return ResourceData.GetAllResources();
 
     }
 
 
-
-    // GET api/resource/5
+    // GET api/resources/5
 
     [HttpGet("{id}")]
-
+    [EnableCors("AnotherPolicy")]
     public ActionResult<string> Get(int id)
 
     {
@@ -42,40 +41,43 @@ public class ResourceController : ControllerBase
 
     }
 
+    [HttpGet]
+    [EnableCors("AnotherPolicy")]
+    [Route("types")]
+    public List<string> GetTypes()
+    {
+        return ResourceData.GetResourceTypes();
+    }
 
-
-    // POST api/resource
+    // POST api/resources
 
     [HttpPost]
-
-    public void Post([FromBody] string value)
-
+    [EnableCors("AnotherPolicy")]
+    public ResourceModel Post([FromBody] ResourceModel value)
     {
-
+        return ResourceData.AddResource(value);
     }
 
 
 
-    // PUT api/resource/5
+    // PUT api/resources/5
 
     [HttpPut("{id}")]
-
-    public void Put(int id, [FromBody] string value)
-
+    [EnableCors("AnotherPolicy")]
+    public ResourceModel Put(string id, [FromBody] ResourceModel value)
     {
-
+        return ResourceData.UpdateResource(id, value);
     }
 
 
 
-    // DELETE api/resource/5
+    // DELETE api/resources/5
 
     [HttpDelete("{id}")]
-
-    public void Delete(int id)
-
+    [EnableCors("AnotherPolicy")]
+    public ResourceModel Delete(string id)
     {
-
+        return ResourceData.DeleteResource(id);
     }
 
 }
