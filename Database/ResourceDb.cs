@@ -12,16 +12,13 @@ namespace Database
     public class ResourceDb
     {
 
-        static string connectionString = "server=scheduling-db.cjmckd98ubrp.us-east-2.rds.amazonaws.com;uid=admin;pwd=13153Lakearnedra!;database=scheduling";
-        static MySqlConnection connection = new MySqlConnection(connectionString);
-
         public static List<ResourceModel> GetResources()
         {
             var pulledResources = new List<ResourceModel>();
-            connection.Open();
+            Connection.instance.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("get_resources", connection);
+                MySqlCommand cmd = new MySqlCommand("get_resources", Connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -37,9 +34,10 @@ namespace Database
                             : new List<DateTime>();
                         var type = !rdr.IsDBNull("type") ? (string)rdr["type"] : "";
                         var eventSize = !rdr.IsDBNull("event_size") ? (string)rdr["event_size"] : "";
+                        var constraints = !rdr.IsDBNull("constraints") ? (string)rdr["constraints"] : "";
 
 
-                        var newResource = new ResourceModel(id, name, availability, type, eventSize);
+                        var newResource = new ResourceModel(id, name, availability, type, eventSize, constraints);
                         pulledResources.Add(newResource);
                     }
                     catch (MySql.Data.MySqlClient.MySqlException ex)
@@ -56,7 +54,7 @@ namespace Database
             }
             finally
             {
-                connection.Close();
+                Connection.instance.Close();
             }
             return pulledResources;
         }
@@ -64,10 +62,10 @@ namespace Database
         public static bool CreateResource(ResourceModel newResource)
         {
             bool success;
-            connection.Open();
+            Connection.instance.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("create_resource", connection);
+                MySqlCommand cmd = new MySqlCommand("create_resource", Connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new MySqlParameter("new_id", newResource.Id));
@@ -76,6 +74,7 @@ namespace Database
                     JsonSerializer.Serialize<List<DateTime>>(newResource.Availability)));
                 cmd.Parameters.Add(new MySqlParameter("new_type", newResource.Type));
                 cmd.Parameters.Add(new MySqlParameter("new_size", newResource.EventSize));
+                cmd.Parameters.Add(new MySqlParameter("new_constraints", newResource.Constraints));
 
 
                 cmd.ExecuteNonQuery();
@@ -89,7 +88,7 @@ namespace Database
             }
             finally
             {
-                connection.Close();
+                Connection.instance.Close();
             }
             return success;
         }
@@ -97,10 +96,10 @@ namespace Database
         public static bool DeleteResource(string id)
         {
             bool success;
-            connection.Open();
+            Connection.instance.Open();
             try
             {
-                var cmd = new MySqlCommand("delete_resource", connection);
+                var cmd = new MySqlCommand("delete_resource", Connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new MySqlParameter("id", id));
@@ -116,7 +115,7 @@ namespace Database
             }
             finally
             {
-                connection.Close();
+                Connection.instance.Close();
             }
             return success;
         }
@@ -124,10 +123,10 @@ namespace Database
         public static List<string> GetResourceTypes()
         {
             var resourceTypes = new List<string>();
-            connection.Open();
+            Connection.instance.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("get_resource_types", connection);
+                MySqlCommand cmd = new MySqlCommand("get_resource_types", Connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -154,7 +153,7 @@ namespace Database
             }
             finally
             {
-                connection.Close();
+                Connection.instance.Close();
             }
             return resourceTypes;
         }

@@ -9,18 +9,20 @@ namespace Models
         public string Name { get; set; }
         public string EventSize { get; set; }
         public List<DateTime> Availability { get; set; }
+        public string Constraints { get; set; }
 
         public EventModel()
         {
 
         }
 
-        public EventModel(string id, string name, List<DateTime> availability, string eventSize)
+        public EventModel(string id, string name, List<DateTime> availability, string eventSize, string constraints)
         {
             this.Id = id;
             this.Name = name;
             this.Availability = availability;
             this.EventSize = eventSize;
+            this.Constraints = constraints;
         }
 
 
