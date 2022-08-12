@@ -31,9 +31,10 @@ namespace Database
                         var name = !rdr.IsDBNull("name") ? (string)rdr["name"] : "";
                         var availability = !rdr.IsDBNull("availability") ? JsonSerializer.Deserialize<List<DateTime>>((string)rdr["availability"]) : new List<DateTime>();
                         var eventSize = !rdr.IsDBNull("event_size") ? (string)rdr["event_size"] : "";
+                        var constraints = !rdr.IsDBNull("constraints") ? (string)rdr["constraints"] : "";
 
 
-                        var newEvent = new EventModel(id, name, availability, eventSize);
+                        var newEvent = new EventModel(id, name, availability, eventSize, constraints);
                         pulledEvents.Add(newEvent);
                     }
                     catch (MySql.Data.MySqlClient.MySqlException ex)
@@ -69,6 +70,7 @@ namespace Database
                 cmd.Parameters.Add(new MySqlParameter("new_availability",
                     JsonSerializer.Serialize<List<DateTime>>(newEvent.Availability)));
                 cmd.Parameters.Add(new MySqlParameter("new_size", newEvent.EventSize));
+                cmd.Parameters.Add(new MySqlParameter("new_constraints", newEvent.Constraints));
 
 
                 cmd.ExecuteNonQuery();
