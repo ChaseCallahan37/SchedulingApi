@@ -15,10 +15,11 @@ namespace Database
         public static List<EventModel> GetEvents()
         {
             var pulledEvents = new List<EventModel>();
-            Connection.instance.Open();
+            var connection = new Connection();
+            connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("get_events", Connection.instance);
+                MySqlCommand cmd = new MySqlCommand("get_events", connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -51,7 +52,7 @@ namespace Database
             }
             finally
             {
-                Connection.instance.Close();
+                connection.Close();
             }
             return pulledEvents;
         }
@@ -59,10 +60,11 @@ namespace Database
         public static bool CreateEvent(EventModel newEvent)
         {
             bool success;
-            Connection.instance.Open();
+            var connection = new Connection();
+            connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("create_event", Connection.instance);
+                MySqlCommand cmd = new MySqlCommand("create_event", connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new MySqlParameter("new_id", newEvent.Id));
@@ -84,7 +86,7 @@ namespace Database
             }
             finally
             {
-                Connection.instance.Close();
+                connection.Close();
             }
             return success;
         }
@@ -92,10 +94,11 @@ namespace Database
         public static bool DeleteEvent(string id)
         {
             bool success;
-            Connection.instance.Open();
+            var connection = new Connection();
+            connection.Open();
             try
             {
-                var cmd = new MySqlCommand("delete_event", Connection.instance);
+                var cmd = new MySqlCommand("delete_event", connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new MySqlParameter("id", id));
@@ -111,17 +114,18 @@ namespace Database
             }
             finally
             {
-                Connection.instance.Close();
+                connection.Close();
             }
             return success;
         }
         public static List<string> GetEventSizes()
         {
             var eventSizes = new List<string>();
-            Connection.instance.Open();
+            var connection = new Connection();
+            connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("get_event_sizes", Connection.instance);
+                MySqlCommand cmd = new MySqlCommand("get_event_sizes", connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -148,7 +152,7 @@ namespace Database
             }
             finally
             {
-                Connection.instance.Close();
+                connection.Close();
             }
             return eventSizes;
         }

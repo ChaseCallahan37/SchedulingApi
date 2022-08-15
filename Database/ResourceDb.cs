@@ -15,10 +15,11 @@ namespace Database
         public static List<ResourceModel> GetResources()
         {
             var pulledResources = new List<ResourceModel>();
-            Connection.instance.Open();
+            var connection = new Connection();
+            connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("get_resources", Connection.instance);
+                MySqlCommand cmd = new MySqlCommand("get_resources", connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -54,7 +55,7 @@ namespace Database
             }
             finally
             {
-                Connection.instance.Close();
+                connection.Close();
             }
             return pulledResources;
         }
@@ -62,10 +63,11 @@ namespace Database
         public static bool CreateResource(ResourceModel newResource)
         {
             bool success;
-            Connection.instance.Open();
+            var connection = new Connection();
+            connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("create_resource", Connection.instance);
+                MySqlCommand cmd = new MySqlCommand("create_resource", connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new MySqlParameter("new_id", newResource.Id));
@@ -88,7 +90,7 @@ namespace Database
             }
             finally
             {
-                Connection.instance.Close();
+                connection.Close();
             }
             return success;
         }
@@ -96,10 +98,11 @@ namespace Database
         public static bool DeleteResource(string id)
         {
             bool success;
-            Connection.instance.Open();
+            var connection = new Connection();
+            connection.Open();
             try
             {
-                var cmd = new MySqlCommand("delete_resource", Connection.instance);
+                var cmd = new MySqlCommand("delete_resource", connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new MySqlParameter("id", id));
@@ -115,7 +118,7 @@ namespace Database
             }
             finally
             {
-                Connection.instance.Close();
+                connection.Close();
             }
             return success;
         }
@@ -123,10 +126,11 @@ namespace Database
         public static List<string> GetResourceTypes()
         {
             var resourceTypes = new List<string>();
-            Connection.instance.Open();
+            var connection = new Connection();
+            connection.Open();
             try
             {
-                MySqlCommand cmd = new MySqlCommand("get_resource_types", Connection.instance);
+                MySqlCommand cmd = new MySqlCommand("get_resource_types", connection.instance);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
@@ -153,7 +157,7 @@ namespace Database
             }
             finally
             {
-                Connection.instance.Close();
+                connection.Close();
             }
             return resourceTypes;
         }
